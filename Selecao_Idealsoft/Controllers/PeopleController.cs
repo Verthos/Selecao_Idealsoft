@@ -6,7 +6,7 @@ using Selecao.Core.Interfaces.Repositories;
 
 namespace Selecao_Idealsoft_Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class PeopleController : ControllerBase
     {
@@ -19,8 +19,8 @@ namespace Selecao_Idealsoft_Api.Controllers
             _db = db;
         }
 
-        // GET: api/Users
-        [HttpGet]
+        // GET: api/people
+        [HttpGet("people")]
         public ActionResult<IEnumerable<Person>> GetPeople()
         {
             try
@@ -33,8 +33,8 @@ namespace Selecao_Idealsoft_Api.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-        [HttpGet("{id}")]
+        // GET: api/person
+        [HttpGet("person/{id}")]
         public ActionResult<Person> GetPerson(int id)
         {
             try
@@ -51,8 +51,8 @@ namespace Selecao_Idealsoft_Api.Controllers
                 return BadRequest($"Erro: {e.Message}");
             }
         }
-
-        [HttpPost]
+        // POST: api/person
+        [HttpPost("person")]
         public ActionResult<Person> CreatePerson(Person person)
         {
             if(!_validator.PersonIsValid(person.Name, person.LastName, person.PhoneNumber))
@@ -71,8 +71,8 @@ namespace Selecao_Idealsoft_Api.Controllers
                 return BadRequest($"Erro: {e.Message}");
             }
         }
-
-        [HttpPut]
+        // PUT: api/person/2
+        [HttpPut("person/{id}")]
         public ActionResult<Person> UpdatePerson(Person person)
         {
             Person userToupdate = _db.GetFirstOrDefault(p => (p.Id == person.Id));
@@ -90,8 +90,8 @@ namespace Selecao_Idealsoft_Api.Controllers
             _db.Save();
             return Ok($"Usuario {person.Name} editado");
         }
-
-        [HttpDelete]
+        // DELETE: api/person/2
+        [HttpDelete("person/{id}")]
         public ActionResult<Person> DeletePerson(int id)
         {
             Person userToRemove = _db.GetFirstOrDefault(p => (p.Id == id));

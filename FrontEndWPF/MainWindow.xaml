@@ -7,6 +7,32 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
 
+        <TextBlock  MinWidth="50" Grid.Row="1" Grid.Column="2" FontWeight="Bold">Nome</TextBlock>
+        <TextBox x:Name="FirstNameText" Width="150" Height="20" Grid.Row="1" Grid.Column="3" Margin="10, 0, 10, 10"></TextBox>
+
+        <TextBlock MinWidth="50" Grid.Row="2" Grid.Column="2" FontWeight="Bold">Sobrenome</TextBlock>
+        <TextBox x:Name="LastNameText" Width="150" Height="20" Grid.Row="2" Grid.Column="3" Margin="10, 0, 10, 10"></TextBox>
+
+        <TextBlock MinWidth="50" Grid.Row="3" Grid.Column="2" FontWeight="Bold">Telefone</TextBlock>
+        <TextBox x:Name="PhoneNameText" Width="150" Height="20" Grid.Row="3" Grid.Column="3" Margin="10, 0, 10, 10"></TextBox>
+
+        <Button x:Name="submitButton" Grid.Column="2" Grid.Row="4" Click="submitButton_Click">Submit</Button>
     </Grid>
 </Window>
