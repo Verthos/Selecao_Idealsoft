@@ -6,33 +6,69 @@
         xmlns:local="clr-namespace:FrontEndWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition MaxHeight="200" Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions >
 
-        <TextBlock  MinWidth="50" Grid.Row="1" Grid.Column="2" FontWeight="Bold">Nome</TextBlock>
-        <TextBox x:Name="FirstNameText" Width="150" Height="20" Grid.Row="1" Grid.Column="3" Margin="10, 0, 10, 10"></TextBox>
+        <!-- Formulário -->
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+            <TextBlock  HorizontalAlignment="Left" MinWidth="50"  FontWeight="Bold" Margin="10">Nome</TextBlock>
+            <TextBox x:Name="FirstNameText" Width="150" Height="20" Margin="40, 0"></TextBox>
+        </StackPanel>
 
-        <TextBlock MinWidth="50" Grid.Row="2" Grid.Column="2" FontWeight="Bold">Sobrenome</TextBlock>
-        <TextBox x:Name="LastNameText" Width="150" Height="20" Grid.Row="2" Grid.Column="3" Margin="10, 0, 10, 10"></TextBox>
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+            <TextBlock HorizontalAlignment="Left" MinWidth="50" FontWeight="Bold" Margin="10">Sobrenome</TextBlock>
+            <TextBox x:Name="LastNameText" Width="150" Height="20" Margin="25, 0"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+            <TextBlock HorizontalAlignment="Left" MinWidth="50"  FontWeight="Bold" Margin="10">Telefone</TextBlock>
+            <TextBox x:Name="PhoneNameText" Width="150" Height="20" Margin="40, 0" ></TextBox>
+        </StackPanel>
+        
+        <!-- Menu -->
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1" >
+            <Button Margin="10" Width="70" x:Name="Consultar" Click="Consultar_Click">Consultar</Button>
+            <Button Margin="10" Width="70" x:Name="Editar" Click="Editar_Click">Editar</Button>
+            <Button Margin="10" Width="70" x:Name="Deletar" Click="Deletar_Click">Deletar</Button>
+        </StackPanel>
 
-        <TextBlock MinWidth="50" Grid.Row="3" Grid.Column="2" FontWeight="Bold">Telefone</TextBlock>
-        <TextBox x:Name="PhoneNameText" Width="150" Height="20" Grid.Row="3" Grid.Column="3" Margin="10, 0, 10, 10"></TextBox>
+        <!-- Exibição -->
+        <ListView x:Name="PeopleList" Grid.Column="2" Grid.Row="2" Grid.RowSpan="20" DisplayMemberPath="Name" ScrollViewer.IsDeferredScrollingEnabled="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListView.View>
+                <GridView AllowsColumnReorder="True">
+                    <GridViewColumn Header=" " >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Nome" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Sobrenome" DisplayMemberBinding="{Binding LastName}"/>
+                    <GridViewColumn Header="Telefone" DisplayMemberBinding="{Binding PhoneNumber}"/>
+                </GridView>
+            </ListView.View>
+            
+        </ListView>
 
-        <Button x:Name="submitButton" Grid.Column="2" Grid.Row="4" Click="submitButton_Click">Submit</Button>
+
+        <Button Margin="10" Width="70" Height="20" HorizontalAlignment="Left" x:Name="submitButton" Grid.Column="1" Grid.Row="5" Click="submitButton_Click">Adicionar</Button>
     </Grid>
 </Window>

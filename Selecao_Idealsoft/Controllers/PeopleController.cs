@@ -71,20 +71,25 @@ namespace Selecao_Idealsoft_Api.Controllers
                 return BadRequest($"Erro: {e.Message}");
             }
         }
-        // PUT: api/person/2
-        [HttpPut("person/{id}")]
-        public ActionResult<Person> UpdatePerson(Person person)
+        // PUT: api/person
+        [HttpPut("person")]
+        public ActionResult<Person> UpdatePerson(Person requestPerson)
         {
-            Person userToupdate = _db.GetFirstOrDefault(p => (p.Id == person.Id));
+            Person person = _db.GetFirstOrDefault(p => (p.Id == requestPerson.Id));
 
-            if (userToupdate == null)
+            if (person == null)
             {
                 return NotFound("Id nao encontrado");
             };
+
             if (!_validator.PersonIsValid(person.Name, person.LastName, person.PhoneNumber))
             {
                 return BadRequest("Dados invalidos");
             };
+
+            person.Name = requestPerson.Name;
+            person.LastName = requestPerson.LastName;
+            person.PhoneNumber = requestPerson.PhoneNumber;
 
             _db.Update(person);
             _db.Save();
