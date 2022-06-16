@@ -1,11 +1,12 @@
-﻿using FrontEndWPF.ViewModels;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Windows;
 using System.Linq;
+using Selecao.Application.Services.PersonValidator;
+using FrontEndWPF.ViewModels;
 
 namespace FrontEndWPF
 {
@@ -14,10 +15,10 @@ namespace FrontEndWPF
     {
         HttpClient client = new HttpClient();
         public ObservableCollection<PersonViewModel> plist = new ObservableCollection<PersonViewModel>();
+        IPersonPropertiesValidator validator = new PersonPropertiesValidator();
 
         public MainWindow()
         {
-                        
             client.BaseAddress = new Uri("https://localhost:7184/api/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
@@ -28,7 +29,6 @@ namespace FrontEndWPF
 
         private void Consultar_Click(object sender, RoutedEventArgs e)
         {
-            
             GetPeople();
         }
 
@@ -36,7 +36,7 @@ namespace FrontEndWPF
         {
             PersonViewModel newPerson = new PersonViewModel(FirstNameText.Text, LastNameText.Text, PhoneNameText.Text);
             CreatePerson(newPerson);
-            MessageBox.Show($"Adicionado nome: {FirstNameText.Text} à lista");
+            
         }
 
         private async void GetPeople()
@@ -63,7 +63,13 @@ namespace FrontEndWPF
 
         private async void CreatePerson(PersonViewModel person)
         {
+            if (!validator.PersonIsValid(person.Name, person.LastName, person.PhoneNumber))
+            {
+                MessageBox.Show($"Dados inválidos: Use nomes e sobrenomes com mais de três letras e telefone no formato 99999-9999");
+                return;
+            }
             await client.PostAsJsonAsync("person", person);
+            MessageBox.Show($"Adicionado nome {person.Name} à lista");
         }
 
         private async void UpdatePerson(PersonViewModel person)
@@ -73,6 +79,10 @@ namespace FrontEndWPF
             {
                 MessageBox.Show("Selecione apenas o item que deseja editar.");
                 return;
+            }
+            if (!validator.PersonIsValid(person.Name, person.LastName, person.PhoneNumber))
+            {
+                MessageBox.Show($"Dados inválidos: Use nomes e sobrenomes com mais de três letras e telefone no formato 99999-9999");
             }
             person.Id = selectedList[0].Id;
             await client.PutAsJsonAsync($"person", person);
