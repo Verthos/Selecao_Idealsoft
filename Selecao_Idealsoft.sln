@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selecao.Infraestructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Selecao.Application", "Selecao.Application\Selecao.Application.csproj", "{2B567BF6-2BEF-4978-A048-CA630A063670}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopUI", "FrontEndWPF\DesktopUI.csproj", "{6E9F4358-6EA9-4DD6-B787-0BA2C22283E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEndWPF", "FrontEndWPF\FrontEndWPF.csproj", "{6E9F4358-6EA9-4DD6-B787-0BA2C22283E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -36,7 +36,6 @@ namespace FrontEndWPF
         {
             PersonViewModel newPerson = new PersonViewModel(FirstNameText.Text, LastNameText.Text, PhoneNameText.Text);
             CreatePerson(newPerson);
-            
         }
 
         private async void GetPeople()
@@ -59,6 +58,7 @@ namespace FrontEndWPF
             var selectedList = plist.Where(x => x.IsSelected == true).ToList();
             PersonViewModel person = new PersonViewModel(FirstNameText.Text, LastNameText.Text, PhoneNameText.Text);
             UpdatePerson(person);
+
         }
 
         private async void CreatePerson(PersonViewModel person)
@@ -70,6 +70,8 @@ namespace FrontEndWPF
             }
             await client.PostAsJsonAsync("person", person);
             MessageBox.Show($"Adicionado nome {person.Name} à lista");
+            plist.Clear();
+            GetPeople();
         }
 
         private async void UpdatePerson(PersonViewModel person)
@@ -86,6 +88,8 @@ namespace FrontEndWPF
             }
             person.Id = selectedList[0].Id;
             await client.PutAsJsonAsync($"person", person);
+            plist.Clear();
+            GetPeople();
         }
         private async void DeletePerson()
         {
